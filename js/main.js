@@ -2,16 +2,11 @@ const frame = document.querySelector('figure');
 const mask = document.querySelector('.mask');
 const countEl = mask.querySelector('span');
 const imgNum = 200;
-let tags = '';
 
-for (let i = 0; i < imgNum; i++) {
-	tags += `<img src='img/pic${i}.jpg' />`;
-}
-frame.innerHTML = tags;
-
-// 동적으로 200개의 DOM이 막 생성된 순간
-const imgs = frame.querySelectorAll('img');
 let count = 0;
+
+createImgs(frame, imgNum);
+const imgs = frame.querySelectorAll('img');
 
 //각 동적생성 이미지 요소를 반복처리
 imgs.forEach((img) => {
@@ -44,6 +39,7 @@ frame.addEventListener('mousemove', (e) => {
 	imgs.forEach((img) => (img.style.visibility = 'hidden'));
 	imgs[percent].style.visibility = 'visible';
 });
+//이미지 넘버와 이미지 개수가 매칭되면서 해당 축의 넘버에 따라 그 넘버에 해당되는 이미지가 뜨는 시스템을 구축한것임
 
 /* 
   전체 작업 흐름
@@ -55,3 +51,12 @@ frame.addEventListener('mousemove', (e) => {
   6. 이미지소스가 모두 로딩되기 전까지는 마스크화면으로 가려주면서 로딩상황 백분율 출력
   7. 모든 이미지 소스 로딩 완료시 마스크화면 제거
 */
+
+function createImgs(frame, imgNum, imgName = 'pic') {
+	let tags = '';
+
+	for (let i = 0; i < imgNum; i++) {
+		tags += `<img src='img/${imgName}${i}.jpg' />`;
+	}
+	frame.innerHTML = tags;
+}
