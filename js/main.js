@@ -1,4 +1,6 @@
 const frame = document.querySelector('figure');
+const mask = document.querySelector('.mask');
+const countEl = mask.querySelector('span');
 const imgNum = 200;
 let tags = '';
 
@@ -6,7 +8,29 @@ for (let i = 0; i < imgNum; i++) {
 	tags += `<img src='img/pic${i}.jpg' />`;
 }
 frame.innerHTML = tags;
+
+// 동적으로 200개의 DOM이 막 생성된 순간
 const imgs = frame.querySelectorAll('img');
+let count = 0;
+
+//각 동적생성 이미지 요소를 반복처리
+imgs.forEach((img) => {
+	//만약 특정 이미지의 소스를 불러오지 못해 엑박이 뜰 시 대체이미지 출력
+	img.addEventListener('error', (e) => {
+		console.log('해당 이미지 로딩 실패', e);
+		e.currentTarget.setAttribute('src', 'logo.png');
+	});
+	//특정 이미지 렌더링 성공시 count값 증가처리
+	img.addEventListener('load', () => {
+		//카운트값을 다시 백분율로 변환해서 로딩화면에 출력
+		countEl.innerText = parseInt((count / imgNum) * 100);
+		count++;
+		//카운트 갯수와 전체 이미지 갯수가 동일해지면(모든 이미지 소스가 렌더링 완료시) 마스크를 제거
+		if (count === imgNum) {
+			mask.remove();
+		}
+	});
+});
 
 frame.addEventListener('mousemove', (e) => {
 	const { pageX } = e; // = const pageX = e.pageX
