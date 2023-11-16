@@ -3,11 +3,11 @@ const mask = document.querySelector('.mask');
 const countEl = mask.querySelector('span');
 const imgNum = 200;
 
+// 로딩시 (시스템)
 const imgs = createImgs(frame, imgNum);
 imgLoadedCheck(imgs);
 
-//각 동적생성 이미지 요소를 반복처리
-
+// 마우스 무브시 (사용자 이벤트)
 frame.addEventListener('mousemove', showImg);
 
 //동적 이미지 생성함수 분리 (돔 생성하자마자 바로 리턴해서 활용 가능하도록 처리)
