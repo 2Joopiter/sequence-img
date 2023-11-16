@@ -6,9 +6,10 @@ for (let i = 0; i < imgNum; i++) {
 	tags += `<img src='img/pic${i}.jpg' />`;
 }
 frame.innerHTML = tags;
+const imgs = frame.querySelectorAll('img');
 
 frame.addEventListener('mousemove', (e) => {
-	const { pageX } = e;
+	const { pageX } = e; // = const pageX = e.pageX
 	console.log('x축', pageX);
 
 	// 백분율 공식 : 현재수치값 / 전체수치값 * 100
@@ -16,7 +17,8 @@ frame.addEventListener('mousemove', (e) => {
 	//parseInt('숫자'): 인수로 전달된 값에 소수점 아래는 버리고 정수를 변환
 	//parseFloat('숫자'): 인수로 전달된 값의 소수점까지 포함한 실수로 반환
 
-	console.log(percent);
+	imgs.forEach((img) => (img.style.visibility = 'hidden'));
+	imgs[percent].style.visibility = 'visible';
 });
 
 /* 
